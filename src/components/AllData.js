@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import { connect } from "react-redux";
+
+import { viewAllAction } from '../actions/index';
 
 
 class ImportData extends Component {
@@ -10,7 +13,10 @@ class ImportData extends Component {
     state = {
         allData : []
     }
+    
+    viewDefault = () => {
 
+    }
     componentDidMount(){
         // console.log(publicKey)
         axios.get("https://pokeapi.co/api/v2/pokemon/ditto/").then(res =>{
@@ -25,4 +31,12 @@ class ImportData extends Component {
     };
 }
 
-export default ImportData;
+const mapDispatchToProps = (dispatch) =>{
+    // console.log('is dispatch', props);
+   return dispatch(viewAllAction());
+}
+
+export default connect(
+    null,
+    mapDispatchToProps,
+  )(ImportData);
