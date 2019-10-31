@@ -2,27 +2,28 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import { connect } from "react-redux";
 
-import { viewAllAction } from '../actions/index';
+// import { viewAllAction } from '../actions/index';
+import { addItem } from '../actions/index';
 
 
 class ImportData extends Component {
     
-    // constructor(){
-    //     const publicAccessKey = publicKey.access_token;
+    // state = {
+    //     allData : []
     // }
-    state = {
-        allData : []
-    }
-    
-    viewDefault = () => {
 
-    }
     componentDidMount(){
-        // console.log(publicKey)
         axios.get("https://pokeapi.co/api/v2/pokemon/ditto/").then(res =>{
-            console.log(res.data.sprites);
+            const { sprites, species, height, weight } = res.data;
+            // console.log(res.data);
+            // console.log( sprites);
+            // console.log(species);
+            // console.log(height);
+            // console.log(weight);
             // this.setState({allData=res.data});
+            this.props.addItem({sprites, species, height, weight});
         });
+        // this.props.viewAll();
     }
     
     render(){
@@ -31,10 +32,10 @@ class ImportData extends Component {
     };
 }
 
-const mapDispatchToProps = (dispatch) =>{
-    // console.log('is dispatch', props);
-   return dispatch(viewAllAction());
-}
+const mapDispatchToProps = (dispatch) =>({
+    // viewAll: () => dispatch(viewAllAction())
+    addItem: (payload) => dispatch(addItem(payload))
+});
 
 export default connect(
     null,
