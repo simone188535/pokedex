@@ -16,7 +16,8 @@ class ImportData extends Component {
         axios.get("https://pokeapi.co/api/v2/pokemon/ditto/").then(res =>{
             const { sprites, species, height, weight } = res.data;
             // console.log(res.data);
-            // console.log( sprites);
+            // console.log( sprites.front_default);
+            // let sprites= sprites.front_default;
             // console.log(species);
             // console.log(height);
             // console.log(weight);

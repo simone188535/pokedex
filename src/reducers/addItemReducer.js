@@ -1,13 +1,18 @@
 const initialState = {
     addedData: []
-  };
+};
 
-  function AddItemReducer(state = initialState, action){
-    if(action.type === 'ADD_ITEM'){
-        console.log('Add Item Is working');
-        console.log(action);
+function AddItemReducer(state = initialState, action) {
+    switch (action.type) {
+        // console.log('Add Item Is working');
+        // console.log(action);
+        // console.log(state);
+        case 'ADD_ITEM':
+            return Object.assign({}, state, {
+                addedData: state.addedData.concat(action.payload)
+            })
+        default: return state;
     }
-    return state;
-  }
+}
 
-  export default AddItemReducer;
+export default AddItemReducer;
