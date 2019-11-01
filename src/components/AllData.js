@@ -3,7 +3,7 @@ import axios from 'axios';
 import { connect } from "react-redux";
 
 // import { viewAllAction } from '../actions/index';
-import { addItem } from '../actions/index';
+import { addItem,filterSearch } from '../actions/index';
 
 
 class ImportData extends Component {
@@ -28,7 +28,8 @@ class ImportData extends Component {
         // this.props.viewAll();
     }
     componentDidUpdate(){
-        console.log(this.props);
+        // console.log(this.props);
+        this.props.filterSearch(this.props.searchValue);
     }
     
     render(){
@@ -39,7 +40,8 @@ class ImportData extends Component {
 
 const mapDispatchToProps = (dispatch) =>({
     // viewAll: () => dispatch(viewAllAction())
-    addItem: (payload) => dispatch(addItem(payload))
+    addItem: (payload) => dispatch(addItem(payload)),
+    filterSearch: (searchValue) => dispatch(filterSearch(searchValue))
 });
 
 export default connect(
