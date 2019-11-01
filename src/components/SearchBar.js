@@ -1,19 +1,21 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Navbar, InputGroup, FormControl, Button } from 'react-bootstrap';
 
 class SearchBar extends Component {
 
+    constructor() {
+        super();
+        this.state = {
+            value: ''
+        }
 
-    state = {
-        searchValue: ''
+        // this.onChangeHandler = this.onChangeHandler.bind(this);
     }
+    onChangeHandler = e => {
 
-    onChangeHandler =  e => {
-
-        this.setState({ value: e.target.searchValue });
-        
-        console.log(this.searchValue);
-
+        this.setState({ value: e.target.value });
+        e.preventDefault();
+        console.log(this.state.value);
     }
     render() {
         return (
@@ -23,8 +25,8 @@ class SearchBar extends Component {
                         placeholder="Search Pokemon"
                         aria-label="Search Pokemon"
                         aria-describedby="basic-addon2"
-                        value={this.state.searchValue}
-                        onChange={e => this.onChangeHandler(e)}
+                        value={this.state.value}
+                        onChange={(e)=> this.onChangeHandler(e)}
                     />
                     {/* <InputGroup.Append>
                     <Button variant="outline-secondary">Search</Button>
