@@ -1,8 +1,15 @@
 const initialState = {
+    allData: [],
     addedData: []
-};
+  };
+  export function viewAllReducer(state = initialState, action) {
+    if (action.type === "TESTING") {
+     console.log("simple reducer is working");
+    }
+    return state;
+  };
 
-function AddItemReducer(state = initialState, action) {
+  export function AddItemReducer(state = initialState, action) {
     switch (action.type) {
         // console.log('Add Item Is working');
         // console.log(action);
@@ -14,5 +21,3 @@ function AddItemReducer(state = initialState, action) {
         default: return state;
     }
 }
-
-export default AddItemReducer;
