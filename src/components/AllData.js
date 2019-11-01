@@ -8,6 +8,13 @@ import { addItem } from '../actions/index';
 
 class ImportData extends Component {
     
+    // constructor(props){
+    //     super(props);
+
+    //     this.state = {
+    //         test: props.searchValue
+    //     }
+    // }
     // state = {
     //     allData : []
     // }
@@ -16,15 +23,12 @@ class ImportData extends Component {
         axios.get("https://pokeapi.co/api/v2/pokemon/ditto/").then(res =>{
             const { sprites, species, height, weight } = res.data;
             // console.log(res.data);
-            // console.log( sprites.front_default);
-            // let sprites= sprites.front_default;
-            // console.log(species);
-            // console.log(height);
-            // console.log(weight);
-            // this.setState({allData=res.data});
             this.props.addItem({sprites, species, height, weight});
         });
         // this.props.viewAll();
+    }
+    componentDidUpdate(){
+        console.log(this.props);
     }
     
     render(){

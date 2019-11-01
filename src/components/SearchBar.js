@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Navbar, InputGroup, FormControl} from 'react-bootstrap';
+import AllData from './AllData';
 
 class SearchBar extends Component {
 
@@ -8,17 +9,16 @@ class SearchBar extends Component {
         this.state = {
             value: ''
         }
-
-        // this.onChangeHandler = this.onChangeHandler.bind(this);
     }
     onChangeHandler = e => {
 
         this.setState({ value: e.target.value });
         e.preventDefault();
-        console.log(this.state.value);
+        // console.log(this.state.value);
     }
     render() {
         return (
+            <div>
             <Navbar className="search-bar-container mx-auto">
                 <InputGroup className="mb-3">
                     <FormControl
@@ -33,6 +33,8 @@ class SearchBar extends Component {
                 </InputGroup.Append> */}
                 </InputGroup>
             </Navbar>
+            <AllData searchValue={this.state.value}/>
+            </div>
 
         );
     }
