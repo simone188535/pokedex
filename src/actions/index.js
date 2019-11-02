@@ -18,7 +18,7 @@ export function addItem({ sprites, species, height, weight }) {
 
 export const filterSearch = (searchValue) => {
     return dispatch => {
-        axios.get(`https://pokeapi.co/api/v2/pokemon/${searchValue}`).then(res => {
+        axios.get(`https://pokeapi.co/api/v2/pokemon/?query=${searchValue}`).then(res => {
             // return res.data;
             console.log(res.data);
             // dispatch({type: 'FILTER_SEARCH', payload: res.data});

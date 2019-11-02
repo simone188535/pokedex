@@ -26,9 +26,10 @@ class ImportData extends Component {
             this.props.addItem({sprites, species, height, weight});
         });
         // this.props.viewAll();
+        // console.log(this.props.searchValue);
     }
     componentDidUpdate(){
-        // console.log(this.props);
+        console.log(this.props.searchValue);
         this.props.filterSearch(this.props.searchValue);
     }
     
