@@ -33,11 +33,13 @@ class ImportData extends Component {
 
             });
             // console.log(allNames);
-            // console.log(this.state.allNames);
+        
             await _.each((allNames), async (value) => {
                 const individualRes = await axios.get(`https://pokeapi.co/api/v2/pokemon/${value}`);
                 
-                console.log(individualRes.data);
+                // this shows all the data from individual responses. Use this to show all data
+                // console.log(individualRes.data);
+
                 const { name, sprites, types, stats, moves, height, weight } = individualRes.data;
                 
                 //extracts front default sprite 
@@ -75,13 +77,12 @@ class ImportData extends Component {
                 // console.log(allMoves);
 
 
-                // this.props.addItem({name, sprite, allTypes, allStats, allMoves, height, weight});
+                this.props.addItem({name, sprite, allTypes, allStats, allMoves, height, weight});
             });
 
         } catch (err) {
             throw new Error('Unable to connect to API');
         }
-        // console.log(this.state.allNames);
 
 
     }
