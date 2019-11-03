@@ -5,15 +5,15 @@ export function viewAllAction() {
     return { type: 'TESTING' };
 }
 
-export function addItem({ name, sprites, types, stats, moves, height, weight }) {
+export function addItem({ name, sprite, allTypes, allStats, allMoves, height, weight }) {
     return {
         type: 'ADD_ITEM',
         payload: {
             name,
-            sprites,
-            types,
-            stats,
-            moves,
+            sprite,
+            allTypes,
+            allStats,
+            allMoves,
             height,
             weight,
         }

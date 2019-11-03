@@ -11,13 +11,13 @@ import { addItem
 
 class ImportData extends Component {
 
-    constructor(props) {
-        super(props);
+    // constructor(props) {
+    //     super(props);
 
-        this.state = {
-            allNames: []
-        }
-    }
+    //     this.state = {
+    //         allNames: []
+    //     }
+    // }
     // state = {
     //     allData : []
     // }
@@ -26,20 +26,56 @@ class ImportData extends Component {
             //this function grabs all names out of the api and stores them in the allNames array. 
             //this info will later be fed into another api call. 
             const res = await axios.get("https://pokeapi.co/api/v2/pokemon/?limit=50&offset=5");
+            const allNames = []
             await _.each((res.data.results), (value) => {
-
-                 this.state.allNames.push(value.name);
+                
+                allNames.push(value.name);
 
             });
+            // console.log(allNames);
             // console.log(this.state.allNames);
-            await _.each((this.state.allNames), async (value) => {
+            await _.each((allNames), async (value) => {
                 const individualRes = await axios.get(`https://pokeapi.co/api/v2/pokemon/${value}`);
                 
                 console.log(individualRes.data);
                 const { name, sprites, types, stats, moves, height, weight } = individualRes.data;
-                const spritesFD = sprites.front_default;
+                
+                //extracts front default sprite 
+                const sprite = sprites.front_default;
+                
+                //extract types
+                let allTypes = [];
+                 _.each((types), (value) =>{
+                    //iterates through types array and puts in to allTypes array
+                     allTypes.push(value.type.name);
+                });
+                // console.log(allTypes);
 
-                // this.props.addItem({name, spritesFD, types, stats, moves, height, weight});
+                //extract stats
+                let allStats = [];
+                _.each((stats), (value) =>{
+                    let statsData={name: value.stat.name, base_stat: value.base_stat};
+                    //iterates through stat array and puts in to allStats array (there are 6 values for each)
+                    allStats.push(statsData);
+                    // console.log(statsData);
+                });
+                // console.log(allStats);
+
+                //extracts the first 4 moves for each pokemon. 
+                let allMoves = [];
+                _.each((moves), (value, key) =>{
+                    //iterates through moves array and puts in to allMoves array
+                    allMoves.push(value.move.name);
+                    
+                    //this stops the array after first 4 moves
+                    if(key===3){
+                        return false;
+                    }
+                });
+                // console.log(allMoves);
+
+
+                // this.props.addItem({name, sprite, allTypes, allStats, allMoves, height, weight});
             });
 
         } catch (err) {
@@ -50,12 +86,6 @@ class ImportData extends Component {
 
     }
     componentDidMount() {
-        // axios.get("https://pokeapi.co/api/v2/pokemon/ditto/").then(res =>{
-        //     const { sprites, species, height, weight } = res.data;
-        //     // console.log(res.data);
-        //     this.props.addItem({sprites, species, height, weight});
-        // });
-        // axios.get("https://pokeapi.co/api/v2/pokemon/ditto/")
         // this.props.allListItems();
         // this.props.viewAll();
         // console.log(this.props.searchValue);
