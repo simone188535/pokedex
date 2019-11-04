@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from "react-redux";
 import _ from 'lodash';
+import { Col, Row, Card } from 'react-bootstrap';
 
 // import { viewAllAction } from '../actions/index';
 import {
@@ -32,11 +33,13 @@ class ImportData extends Component {
 
         return (<div>{loadStatus}</div>);
     }
+
+
     grabAllNamesFromAPI = async () => {
         try {
             //this function grabs all names out of the api and stores them in the allNames array. 
             //this info will later be fed into another api call. 
-            const res = await axios.get("https://pokeapi.co/api/v2/pokemon/?limit=150");
+            const res = await axios.get("https://pokeapi.co/api/v2/pokemon/?limit=50");
             //const allNames = [];
             const allNames = _.map((res.data.results), (value) => {
                 return value.name
@@ -101,12 +104,11 @@ class ImportData extends Component {
                 this.props.addItem({ name, sprite, allTypes, allStats, allMoves, height, weight });
             });
 
+            //after putting data into redux, switch loading state to false
             this.setState({
                 loading: !this.state.loading
             })
-            console.log(this.state.loading);
-            // //render list after data is loaded
-            // this.renderList();
+
 
         } catch (err) {
             throw new Error('Unable to insert API data into Redux');
@@ -114,7 +116,27 @@ class ImportData extends Component {
 
     }
     renderList = () => {
-        console.log(this.props.listItems);
+
+        // only render after loading data into redux
+        if (!this.state.loading) {
+            let displayList = _.map((this.props.listItems), (value) => {
+                const {name,sprite} = value;
+
+                return(
+                    <Col>
+                        <Card style={{ width: '18rem' }}>
+                            <Card.Img variant="top" src={sprite} />
+                            <Card.Body>
+                                <Card.Title>{name}</Card.Title>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                );
+            });
+            return displayList;
+            // 
+        }
+
     }
     componentDidMount() {
         // this.props.allListItems();
@@ -137,7 +159,13 @@ class ImportData extends Component {
 
     render() {
 
-        return (<div>{this.isLoading()}</div>);
+        return (<div>
+            <div>{this.isLoading()}</div>
+            <div>
+            <Row>
+            {this.renderList()}
+            </Row></div>
+        </div>);
     };
 }
 
@@ -148,7 +176,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const mapStateToProps = (state) => {
     // console.log('state',state);
-    return { listItems: state.AddItemReducer };
+    return { listItems: state.AddItemReducer.listItems };
 
 };
 
