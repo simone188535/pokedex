@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 import _ from 'lodash';
 
 // import { viewAllAction } from '../actions/index';
-import { addItem
+import {
+    addItem
     // , allListItems 
 } from '../actions/index';
 
@@ -21,42 +22,50 @@ class ImportData extends Component {
     // state = {
     //     allData : []
     // }
-    grabAllNames = async () => {
+    grabAllNamesFromAPI = async () => {
         try {
             //this function grabs all names out of the api and stores them in the allNames array. 
             //this info will later be fed into another api call. 
             const res = await axios.get("https://pokeapi.co/api/v2/pokemon/?limit=50&offset=5");
             const allNames = []
             await _.each((res.data.results), (value) => {
-                
+
                 allNames.push(value.name);
 
             });
-            // console.log(allNames);
-        
-             _.each((allNames), async (value) => {
+            this.useNamesToInputDataIntoRedux(allNames);
+
+        } catch (err) {
+            throw new Error('Unable to get names from API');
+        }
+
+    }
+    useNamesToInputDataIntoRedux = async (allNames) => {
+        try {
+            const parsedData = await Promise.all(_.map((allNames), async (value) => {
                 const individualRes = await axios.get(`https://pokeapi.co/api/v2/pokemon/${value}`);
-                
+
+                // return console.log('test1');
                 // this shows all the data from individual responses. Use this to show all data
                 // console.log(individualRes.data);
 
                 const { name, sprites, types, stats, moves, height, weight } = individualRes.data;
-                
+
                 //extracts front default sprite 
                 const sprite = sprites.front_default;
-                
+
                 //extract types
                 let allTypes = [];
-                 _.each((types), (value) =>{
+                _.each((types), (value) => {
                     //iterates through types array and puts in to allTypes array
-                     allTypes.push(value.type.name);
+                    allTypes.push(value.type.name);
                 });
                 // console.log(allTypes);
 
                 //extract stats
                 let allStats = [];
-                _.each((stats), (value) =>{
-                    let statsData={name: value.stat.name, base_stat: value.base_stat};
+                _.each((stats), (value) => {
+                    let statsData = { name: value.stat.name, base_stat: value.base_stat };
                     //iterates through stat array and puts in to allStats array (there are 6 values for each)
                     allStats.push(statsData);
                     // console.log(statsData);
@@ -65,37 +74,42 @@ class ImportData extends Component {
 
                 //extracts the first 4 moves for each pokemon. 
                 let allMoves = [];
-                _.each((moves), (value, key) =>{
+                _.each((moves), (value, key) => {
                     //iterates through moves array and puts in to allMoves array
                     allMoves.push(value.move.name);
-                    
+
                     //this stops the array after first 4 moves
-                    if(key===3){
+                    if (key === 3) {
                         return false;
                     }
                 });
                 // console.log(allMoves);
 
 
-                this.props.addItem({name, sprite, allTypes, allStats, allMoves, height, weight});
-            });
+                console.log(this.props.addItem({ name, sprite, allTypes, allStats, allMoves, height, weight }));
 
+            }));
+
+
+            console.log('test2');
             //try dispatching an action to let redux know the data is loaded before moving on to next steps
+            // parsedData.then(()=>{
 
+            // });
         } catch (err) {
-            throw new Error('Unable to connect to API');
+            throw new Error('Unable to insert API data into Redux');
         }
 
-
     }
-    renderList = () =>{
+    renderList = () => {
         console.log(this.props.listItems);
     }
     componentDidMount() {
         // this.props.allListItems();
         // this.props.viewAll();
         // console.log(this.props.searchValue);
-        this.grabAllNames();
+        this.grabAllNamesFromAPI();
+
         // console.log(this.props.searchValue);
         // 
 
@@ -120,7 +134,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => {
     // console.log('state',state);
     return { listItems: state.AddItemReducer };
-    
+
 };
 
 export default connect(
