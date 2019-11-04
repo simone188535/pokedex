@@ -34,7 +34,7 @@ class ImportData extends Component {
             });
             // console.log(allNames);
         
-            await _.each((allNames), async (value) => {
+             _.each((allNames), async (value) => {
                 const individualRes = await axios.get(`https://pokeapi.co/api/v2/pokemon/${value}`);
                 
                 // this shows all the data from individual responses. Use this to show all data
@@ -80,22 +80,30 @@ class ImportData extends Component {
                 this.props.addItem({name, sprite, allTypes, allStats, allMoves, height, weight});
             });
 
+            //try dispatching an action to let redux know the data is loaded before moving on to next steps
+
         } catch (err) {
             throw new Error('Unable to connect to API');
         }
 
 
     }
+    renderList = () =>{
+        console.log(this.props.listItems);
+    }
     componentDidMount() {
         // this.props.allListItems();
         // this.props.viewAll();
         // console.log(this.props.searchValue);
         this.grabAllNames();
+        // console.log(this.props.searchValue);
+        // 
 
     }
     componentDidUpdate() {
-        console.log(this.props.searchValue);
-        this.props.filterSearch(this.props.searchValue);
+        // this.renderList();
+        // console.log(this.props.searchValue);
+        // this.props.filterSearch(this.props.searchValue);
     }
 
     render() {
@@ -109,8 +117,13 @@ const mapDispatchToProps = (dispatch) => ({
     addItem: (payload) => dispatch(addItem(payload)),
     // allListItems: () => dispatch(allListItems())
 });
+const mapStateToProps = (state) => {
+    // console.log('state',state);
+    return { listItems: state.AddItemReducer };
+    
+};
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps,
 )(ImportData);

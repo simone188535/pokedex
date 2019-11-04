@@ -1,7 +1,7 @@
 const initialState = {
-    allData: [],
-    addedData: [],
-    filteredValues: []
+    // allData: [],
+    listItems: [],
+    // filteredValues: []
 };
 export function viewAllReducer(state = initialState, action) {
     if (action.type === "TESTING") {
@@ -17,17 +17,17 @@ export function AddItemReducer(state = initialState, action) {
         // console.log(state);
         case 'ADD_ITEM':
             return Object.assign({}, state, {
-                addedData: state.addedData.concat(action.payload)
+                listItems: state.listItems.concat(action.payload)
             })
         default: return state;
     }
-}
-export function filterSearchReducer(state = initialState, action) {
-    switch (action.type) {
-        case 'FILTER_SEARCH':
-                return console.log("is this working");
-            // return console.log(action);
+ }
+// export function filterSearchReducer(state = initialState, action) {
+//     switch (action.type) {
+//         case 'FILTER_SEARCH':
+//                 return console.log("is this working");
+//             // return console.log(action);
 
-        default: return state;
-    }
-}
+//         default: return state;
+//     }
+// }
