@@ -12,15 +12,25 @@ import {
 
 class ImportData extends Component {
 
-    constructor(props) {
-        super(props);
+    // constructor(props) {
+    //     super(props);
 
-        this.state = {
-            promisesArray: []
-        }
-    }
+    //     this.state = {
+    //         loading: true,
+    //     }
+    // }
     state = {
-        allData : []
+        loading: true,
+    }
+    isLoading = () => {
+        let loadStatus = '';
+        if (this.state.loading) {
+            loadStatus = 'Loading...';
+        } else {
+            loadStatus = 'Done Loading';
+        }
+
+        return (<div>{loadStatus}</div>);
     }
     grabAllNamesFromAPI = async () => {
         try {
@@ -38,23 +48,23 @@ class ImportData extends Component {
         }
 
     }
-    useNamesToInputDataIntoRedux =  async (allNames) => {
+    useNamesToInputDataIntoRedux = async (allNames) => {
         try {
-            
+
             const promisesArray = _.map(allNames, async (value) => {
-                const res= await axios.get(`https://pokeapi.co/api/v2/pokemon/${value}`);
+                const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${value}`);
                 return res;
             });
             // console.log(promisesArray);
             const valuesArray = await axios.all(promisesArray);
             // console.log(valuesArray); // Should have resolved values
-           
-            _.each((valuesArray), (res) =>{
-                
+
+            _.each((valuesArray), (res) => {
+
                 const { name, sprites, types, stats, moves, height, weight } = res.data;
                 // console.log(name);
 
-                    //extracts front default sprite 
+                //extracts front default sprite 
                 const sprite = sprites.front_default;
 
                 //extract types
@@ -72,7 +82,7 @@ class ImportData extends Component {
                     // console.log(statsData);
                 });
                 // console.log(allStats);
-                
+
                 //extracts the first 4 moves for each pokemon. 
                 let allMoves = [];
                 _.each((moves), (value, key) => {
@@ -88,12 +98,16 @@ class ImportData extends Component {
 
 
 
-               this.props.addItem({ name, sprite, allTypes, allStats, allMoves, height, weight });
+                this.props.addItem({ name, sprite, allTypes, allStats, allMoves, height, weight });
             });
-            
+
+            this.setState({
+                loading: !this.state.loading
+            })
+            console.log(this.state.loading);
             // //render list after data is loaded
             // this.renderList();
-            
+
         } catch (err) {
             throw new Error('Unable to insert API data into Redux');
         }
@@ -106,7 +120,6 @@ class ImportData extends Component {
         // this.props.allListItems();
         // this.props.viewAll();
         // console.log(this.props.searchValue);
-        
         this.grabAllNamesFromAPI();
         // Promise.all([this.grabAllNamesFromAPI()]).then(() => {
         //     console.log('test1');
@@ -124,7 +137,7 @@ class ImportData extends Component {
 
     render() {
 
-        return (<div>Importing data</div>);
+        return (<div>{this.isLoading()}</div>);
     };
 }
 
