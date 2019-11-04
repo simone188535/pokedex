@@ -42,7 +42,7 @@ class ImportData extends Component {
     }
     useNamesToInputDataIntoRedux = async (allNames) => {
         try {
-            const parsedData = await Promise.all(_.map((allNames), async (value) => {
+             await Promise.all(_.map((allNames), async (value) => {
                 const individualRes = await axios.get(`https://pokeapi.co/api/v2/pokemon/${value}`);
 
                 // return console.log('test1');
@@ -90,12 +90,9 @@ class ImportData extends Component {
 
             }));
 
-
-            console.log('test2');
-            //try dispatching an action to let redux know the data is loaded before moving on to next steps
-            // parsedData.then(()=>{
-
-            // });
+            //render list after data is loaded
+            this.renderList();
+            
         } catch (err) {
             throw new Error('Unable to insert API data into Redux');
         }
