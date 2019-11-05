@@ -4,7 +4,7 @@ const initialState = {
     // filteredValues: []
 };
 
-export function AddItemReducer(state = initialState, action) {
+export function DisplayListReducer(state = initialState, action) {
     switch (action.type) {
         // console.log('Add Item Is working');
         // console.log(action);
@@ -13,15 +13,18 @@ export function AddItemReducer(state = initialState, action) {
             return Object.assign({}, state, {
                 listItems: state.listItems.concat(action.payload)
             })
+        case 'FILTER_LIST':
+                let payload = action.payload;
+        // console.log(state);
+                return {...state, listItems: state.listItems.filter((action)=>{
+                    console.log(payload);
+                    // console.log(action);
+                    return action.name.includes(payload);
+                     
+                })}
+                // return  {...state};
+        
+       
         default: return state;
     }
  }
-export function filterSearchReducer(state = initialState, action) {
-    switch (action.type) {
-        case 'FILTER_LIST':
-                return console.log("is this working");
-            // return console.log(action);
-
-        default: return state;
-    }
-}

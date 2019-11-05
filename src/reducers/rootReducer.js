@@ -1,9 +1,8 @@
 import {combineReducers} from 'redux';
-import { AddItemReducer, filterSearchReducer } from '../reducers/allReducers';
+import { DisplayListReducer } from '../reducers/allReducers';
 
 const rootReducer = combineReducers({
-    AddItemReducer,
-    filterSearchReducer
+    DisplayListReducer
 });
 
 export default rootReducer;

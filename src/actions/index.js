@@ -12,12 +12,10 @@ export function addItem({ name, sprite, allTypes, allStats, allMoves, height, we
         }
     };
 }
-export function filterSearch({searchValue}) {
+export function filterSearch(payload) {
     return {
         type: 'FILTER_LIST',
-        payload:{
-            searchValue
-        }
+        payload
 
     }
 }

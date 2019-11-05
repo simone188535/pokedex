@@ -175,13 +175,12 @@ class ImportData extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    // viewAll: () => dispatch(viewAllAction())
     addItem: (payload) => dispatch(addItem(payload)),
     filterSearch: (payload) => dispatch(filterSearch(payload))
 });
 const mapStateToProps = (state) => {
     // console.log('state',state);
-    return { listItems: state.AddItemReducer.listItems };
+    return { listItems: state.DisplayListReducer.listItems };
 
 };
 
