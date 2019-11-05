@@ -15,12 +15,8 @@ class SearchBar extends Component {
 
         this.setState({ value: e.target.value });
         e.preventDefault();
-        // console.log(this.state.value);
     }
-    // passSearchValue = () =>{
-    //     // console.log('working')
-    //     this.setState({ searchValue: this.state.value});
-    // }
+  
     render() {
         return (
             <div>
@@ -33,9 +29,6 @@ class SearchBar extends Component {
                         value={this.state.value}
                         onChange={(e)=> this.onChangeHandler(e)}
                     />
-                    {/* <InputGroup.Append>
-                    <Button variant="outline-secondary" onClick={()=> this.passSearchValue()}>Search</Button>
-                </InputGroup.Append> */}
                 </InputGroup>
             </Navbar>
             <AllData searchValue={this.state.value}/>

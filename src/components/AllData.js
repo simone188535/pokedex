@@ -5,7 +5,9 @@ import _ from 'lodash';
 import { Col, Row, Card } from 'react-bootstrap';
 
 import {
-    addItem, filterSearch} from '../actions/index';
+    addItem
+    //, filterSearch
+} from '../actions/index';
 
 
 class ImportData extends Component {
@@ -116,7 +118,11 @@ class ImportData extends Component {
 
         // only render after loading data into redux
         if (!this.state.loading) {
-            let displayList = _.map((this.props.listItems), (value, key) => {
+            const { listItems, searchValue } = this.props;
+            
+            let filteredList =listItems.filter((item) => item.name.includes(searchValue));
+            
+            let displayList = _.map((filteredList), (value, key) => {
                 const { name, sprite } = value;
 
                 return (
@@ -135,32 +141,12 @@ class ImportData extends Component {
         }
 
     }
-    filterList = () => {
-        this.props.filterSearch(this.props.searchValue);
-    }
-    componentDidMount() {
-        // this.props.allListItems();
-        // this.props.viewAll();
-        // console.log(this.props.searchValue);
-        this.grabAllNamesFromAPI();
-        // Promise.all([this.grabAllNamesFromAPI()]).then(() => {
-        //     console.log('test1');
-        //   });
-
-        // console.log(this.props.searchValue);
-        // 
-
-    }
-    componentDidUpdate(prevProps) {
-        if (this.props.searchValue !== prevProps.searchValue) {
-           this.filterList();
-          }
-        // this.renderList();
     
-        // this.props.filterSearch(this.props.searchValue);
+    componentDidMount() {
+        this.grabAllNamesFromAPI();
     }
-   
-     
+
+
 
     render() {
 
@@ -176,7 +162,7 @@ class ImportData extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
     addItem: (payload) => dispatch(addItem(payload)),
-    filterSearch: (payload) => dispatch(filterSearch(payload))
+    // filterSearch: (payload) => dispatch(filterSearch(payload))
 });
 const mapStateToProps = (state) => {
     // console.log('state',state);
