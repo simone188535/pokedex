@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from "react-redux";
 import _ from 'lodash';
-import { Col, Row, Card } from 'react-bootstrap';
+import { Container, Col, Row, Card } from 'react-bootstrap';
 
-import {
-    addItem
-    //, filterSearch
-} from '../actions/index';
+import { addItem } from '../actions/index';
 
 
 class ImportData extends Component {
@@ -16,7 +13,9 @@ class ImportData extends Component {
         loading: true,
     }
     isLoading = () => {
+
         let loadStatus = '';
+
         if (this.state.loading) {
             loadStatus = 'Loading...';
         } else {
@@ -31,11 +30,12 @@ class ImportData extends Component {
         try {
             //this function grabs all names out of the api and stores them in the allNames array. 
             //this info will later be fed into another api call. 
-            const res = await axios.get("https://pokeapi.co/api/v2/pokemon/?limit=50");
-            //const allNames = [];
+            const res = await axios.get("https://pokeapi.co/api/v2/pokemon/?limit=100");
+
             const allNames = _.map((res.data.results), (value) => {
                 return value.name
             });
+
             this.useNamesToInputDataIntoRedux(allNames);
 
         } catch (err) {
@@ -111,16 +111,18 @@ class ImportData extends Component {
 
         // only render after loading data into redux
         if (!this.state.loading) {
+
             const { listItems, searchValue } = this.props;
 
             let filteredList = listItems.filter((item) => item.name.includes(searchValue));
 
             let displayList = _.map((filteredList), (value, key) => {
+
                 const { name, sprite } = value;
 
                 return (
-                    <Col key={key}>
-                        <Card style={{ width: '18rem' }}>
+                    <Col key={key} md={3}>
+                        <Card  className="text-center">
                             <Card.Img variant="top" src={sprite} />
                             <Card.Body>
                                 <Card.Title>{name}</Card.Title>
@@ -148,9 +150,11 @@ class ImportData extends Component {
                 {this.isLoading()}
             </div>
             <div>
-                <Row>
-                    {this.renderList()}
-                </Row>
+                <Container fluid>
+                    <Row>
+                        {this.renderList()}
+                    </Row>
+                </Container>
             </div>
         </div>);
     };
