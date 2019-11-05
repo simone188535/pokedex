@@ -4,11 +4,8 @@ import { connect } from "react-redux";
 import _ from 'lodash';
 import { Col, Row, Card } from 'react-bootstrap';
 
-// import { viewAllAction } from '../actions/index';
 import {
-    addItem
-    // , allListItems 
-} from '../actions/index';
+    addItem, filterSearch} from '../actions/index';
 
 
 class ImportData extends Component {
@@ -119,11 +116,11 @@ class ImportData extends Component {
 
         // only render after loading data into redux
         if (!this.state.loading) {
-            let displayList = _.map((this.props.listItems), (value) => {
-                const {name,sprite} = value;
+            let displayList = _.map((this.props.listItems), (value, key) => {
+                const { name, sprite } = value;
 
-                return(
-                    <Col>
+                return (
+                    <Col key={key}>
                         <Card style={{ width: '18rem' }}>
                             <Card.Img variant="top" src={sprite} />
                             <Card.Body>
@@ -138,6 +135,9 @@ class ImportData extends Component {
         }
 
     }
+    filterList = () => {
+        this.props.filterSearch(this.props.searchValue);
+    }
     componentDidMount() {
         // this.props.allListItems();
         // this.props.viewAll();
@@ -151,20 +151,25 @@ class ImportData extends Component {
         // 
 
     }
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
+        if (this.props.searchValue !== prevProps.searchValue) {
+           this.filterList();
+          }
         // this.renderList();
-        // console.log(this.props.searchValue);
+    
         // this.props.filterSearch(this.props.searchValue);
     }
+   
+     
 
     render() {
 
         return (<div>
             <div>{this.isLoading()}</div>
             <div>
-            <Row>
-            {this.renderList()}
-            </Row></div>
+                <Row>
+                    {this.renderList()}
+                </Row></div>
         </div>);
     };
 }
@@ -172,7 +177,7 @@ class ImportData extends Component {
 const mapDispatchToProps = (dispatch) => ({
     // viewAll: () => dispatch(viewAllAction())
     addItem: (payload) => dispatch(addItem(payload)),
-    // allListItems: () => dispatch(allListItems())
+    filterSearch: (payload) => dispatch(filterSearch(payload))
 });
 const mapStateToProps = (state) => {
     // console.log('state',state);

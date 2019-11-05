@@ -3,12 +3,6 @@ const initialState = {
     listItems: [],
     // filteredValues: []
 };
-export function viewAllReducer(state = initialState, action) {
-    if (action.type === "TESTING") {
-        console.log("simple reducer is working");
-    }
-    return state;
-};
 
 export function AddItemReducer(state = initialState, action) {
     switch (action.type) {
@@ -22,12 +16,12 @@ export function AddItemReducer(state = initialState, action) {
         default: return state;
     }
  }
-// export function filterSearchReducer(state = initialState, action) {
-//     switch (action.type) {
-//         case 'FILTER_SEARCH':
-//                 return console.log("is this working");
-//             // return console.log(action);
+export function filterSearchReducer(state = initialState, action) {
+    switch (action.type) {
+        case 'FILTER_LIST':
+                return console.log("is this working");
+            // return console.log(action);
 
-//         default: return state;
-//     }
-// }
+        default: return state;
+    }
+}
