@@ -12,13 +12,6 @@ import {
 
 class ImportData extends Component {
 
-    // constructor(props) {
-    //     super(props);
-
-    //     this.state = {
-    //         loading: true,
-    //     }
-    // }
     state = {
         loading: true,
     }
@@ -119,9 +112,9 @@ class ImportData extends Component {
         // only render after loading data into redux
         if (!this.state.loading) {
             const { listItems, searchValue } = this.props;
-            
-            let filteredList =listItems.filter((item) => item.name.includes(searchValue));
-            
+
+            let filteredList = listItems.filter((item) => item.name.includes(searchValue));
+
             let displayList = _.map((filteredList), (value, key) => {
                 const { name, sprite } = value;
 
@@ -141,7 +134,7 @@ class ImportData extends Component {
         }
 
     }
-    
+
     componentDidMount() {
         this.grabAllNamesFromAPI();
     }
@@ -151,18 +144,20 @@ class ImportData extends Component {
     render() {
 
         return (<div>
-            <div>{this.isLoading()}</div>
+            <div>
+                {this.isLoading()}
+            </div>
             <div>
                 <Row>
                     {this.renderList()}
-                </Row></div>
+                </Row>
+            </div>
         </div>);
     };
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    addItem: (payload) => dispatch(addItem(payload)),
-    // filterSearch: (payload) => dispatch(filterSearch(payload))
+    addItem: (payload) => dispatch(addItem(payload))
 });
 const mapStateToProps = (state) => {
     // console.log('state',state);
