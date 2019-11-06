@@ -1,3 +1,18 @@
+
+body{
+    background: linear-gradient(to left, rgb(71, 118, 230), rgb(142, 84, 233));
+}
+.main-content .card-container .card .card-img-top{
+    background: #313131;
+}
 .search-bar-container{
     width: 50%;
+}
+@media only screen and (max-width: 768px) {
+    .search-bar-container{
+        width: 90%;
+    }
+    .main-content .card-container .card{
+        margin: auto 20%;
+    }
 }

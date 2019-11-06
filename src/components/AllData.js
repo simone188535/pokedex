@@ -122,7 +122,7 @@ class ImportData extends Component {
 
                 return (
                     <Col key={key} md={3}>
-                        <Card  className="text-center">
+                        <Card  className="text-center my-5">
                             <Card.Img variant="top" src={sprite} />
                             <Card.Body>
                                 <Card.Title>{name}</Card.Title>
@@ -145,12 +145,13 @@ class ImportData extends Component {
 
     render() {
 
-        return (<div>
+        return (
+        <div className="main-content">
             <div>
                 {this.isLoading()}
             </div>
-            <div>
-                <Container fluid>
+            <div >
+                <Container className="card-container">
                     <Row>
                         {this.renderList()}
                     </Row>
