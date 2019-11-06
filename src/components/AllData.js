@@ -22,13 +22,12 @@ class ImportData extends Component {
             loadStatus = 'Done Loading';
         }
 
-        return (<div>{loadStatus}</div>);
+        return (<div className="">{loadStatus}</div>);
     }
 
-
+     //this function grabs all names out of the api and stores them in the allNames array. 
     grabAllNamesFromAPI = async () => {
         try {
-            //this function grabs all names out of the api and stores them in the allNames array. 
             //this info will later be fed into another api call. 
             const res = await axios.get("https://pokeapi.co/api/v2/pokemon/?limit=100");
 
@@ -43,6 +42,9 @@ class ImportData extends Component {
         }
 
     }
+
+    //this function parses the data using the names from the grabAllNamesFromAPI function and extracts into a simplified form. It then
+    //uploads it to redux using axios.
     useNamesToInputDataIntoRedux = async (allNames) => {
         try {
 
@@ -122,7 +124,8 @@ class ImportData extends Component {
 
                 return (
                     <Col key={key} md={3}>
-                        <Card  className="text-center my-5">
+                        
+                        <Card className="text-center my-5">
                             <Card.Img variant="top" src={sprite} />
                             <Card.Body>
                                 <Card.Title>{name}</Card.Title>
@@ -132,7 +135,6 @@ class ImportData extends Component {
                 );
             });
             return displayList;
-            // 
         }
 
     }

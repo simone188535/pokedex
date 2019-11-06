@@ -12,10 +12,10 @@ export function addItem({ name, sprite, allTypes, allStats, allMoves, height, we
         }
     };
 }
-export function filterSearch(payload) {
-    return {
-        type: 'FILTER_LIST',
-        payload
+// export function filterSearch(payload) {
+//     return {
+//         type: 'FILTER_LIST',
+//         payload
 
-    }
-}
+//     }
+// }
