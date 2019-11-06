@@ -1,8 +1,9 @@
 import {combineReducers} from 'redux';
-import { DisplayListReducer } from '../reducers/allReducers';
+import { DisplayListReducer,DetailReducer } from '../reducers/allReducers';
 
 const rootReducer = combineReducers({
-    DisplayListReducer
+    DisplayListReducer,
+    DetailReducer
 });
 
 export default rootReducer;

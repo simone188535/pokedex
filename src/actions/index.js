@@ -1,4 +1,5 @@
-export function addItem({ name, sprite, allTypes, allStats, allMoves, height, weight }) {
+
+export const addItem = ({ name, sprite, allTypes, allStats, allMoves, height, weight }) => {
     return {
         type: 'ADD_ITEM',
         payload: {
@@ -12,10 +13,8 @@ export function addItem({ name, sprite, allTypes, allStats, allMoves, height, we
         }
     };
 }
-// export function filterSearch(payload) {
-//     return {
-//         type: 'FILTER_LIST',
-//         payload
-
-//     }
-// }
+export const fetchDetails = (payload) => async dispatch =>{
+    console.log('fetchDetails is working', payload);
+    dispatch({type: 'GET_DATA', payload});
+    
+}
