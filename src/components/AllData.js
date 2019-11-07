@@ -29,7 +29,7 @@ class ImportData extends Component {
     grabAllNamesFromAPI = async () => {
         try {
             //this info will later be fed into another api call. 
-            const res = await axios.get("https://pokeapi.co/api/v2/pokemon/?limit=100");
+            const res = await axios.get("https://pokeapi.co/api/v2/pokemon/?limit=150");
 
             const allNames = _.map((res.data.results), (value) => {
                 return value.name
