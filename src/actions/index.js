@@ -1,4 +1,4 @@
-
+// import axios from 'axios';
 export const addItem = ({ name, sprite, allTypes, allStats, allMoves, height, weight }) => {
     return {
         type: 'ADD_ITEM',
@@ -12,9 +12,4 @@ export const addItem = ({ name, sprite, allTypes, allStats, allMoves, height, we
             weight,
         }
     };
-}
-export const fetchDetails = (payload) => async dispatch =>{
-    console.log('fetchDetails is working', payload);
-    dispatch({type: 'GET_DATA', payload});
-    
 }

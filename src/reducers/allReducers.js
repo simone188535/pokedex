@@ -1,6 +1,5 @@
 const initialState = {
-    listItems: [],
-    detailData: []
+    listItems: []
 
 };
 
@@ -15,11 +14,3 @@ export const DisplayListReducer = (state = initialState, action) => {
     }
  }
 
- export const DetailReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case 'GET_DATA':
-            return state;
-       
-        default: return state;
-    }
- }

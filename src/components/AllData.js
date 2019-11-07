@@ -120,15 +120,37 @@ class ImportData extends Component {
 
             let displayList = _.map((filteredList), (value, key) => {
 
-                const { name, sprite } = value;
+                
+                const { name, sprite, allTypes, allStats, allMoves, height, weight } = value;
 
+                const everyType = _.map((allTypes),(value)=>value).join(', ');
+                
+                const everyStats = _.map((allStats),(value, i)=>{
+                     return <div key={i}> {value.name} : {value.base_stat} </div>;
+                    
+                });
+                const everyMoves = _.map((allMoves),(value)=>value).join(', ');
+                
+                
                 return (
-                    <Col key={key} md={3}>
+                    <Col key={key} md={4}>
                         
-                        <Card className="text-center my-5">
+                        <Card className="my-5">
                             <Card.Img variant="top" src={sprite} />
                             <Card.Body>
-                                <Card.Title>{name}</Card.Title>
+                                <Card.Title className="text-center">{name}</Card.Title>
+                                <div className="details">
+                                    <div className="sub-title">Types:</div>
+                                    <div className="sub-content">{everyType}</div>
+                                    <div className="sub-title">Stats:</div>
+                                    <div className="sub-content">{everyStats}</div>
+                                    <div className="sub-title">Moves:</div>
+                                    <div className="sub-content">{everyMoves}</div>
+                                    <div className="sub-title">Height:</div>
+                                    <div className="sub-content">{height}</div>
+                                    <div className="sub-title">Weight:</div>
+                                    <div className="sub-content">{weight}</div>
+                                </div>
                             </Card.Body>
                         </Card>
                     </Col>
