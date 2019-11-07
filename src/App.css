@@ -5,6 +5,18 @@ body{
 .search-bar-container{
     width: 50%;
 }
+.main-content .isLoading #loading{
+    color: White;
+    font-size: 30px;
+    font-weight: bold; 
+}
+
+.main-content .card-container{
+    max-width: 960px;
+}
+.main-content .card-container .card{
+    height: 750px;
+}
 .main-content .card-container .card .card-img-top{
     background: #313131;
 }
@@ -17,6 +29,8 @@ body{
         width: 90%;
     }
     .main-content .card-container .card{
-        margin: auto 20%;
+        /* margin: auto 25%; */
+        max-width: 300px;
+        margin: 0 auto;
     }
 }

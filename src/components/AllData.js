@@ -17,12 +17,12 @@ class ImportData extends Component {
         let loadStatus = '';
 
         if (this.state.loading) {
-            loadStatus = 'Loading...';
+            loadStatus = <div  id="loading">Loading...</div>;
         } else {
-            loadStatus = 'Done Loading';
+            loadStatus = '';
         }
 
-        return (<div className="">{loadStatus}</div>);
+        return (<div className="text-center">{loadStatus}</div>);
     }
 
      //this function grabs all names out of the api and stores them in the allNames array. 
@@ -171,7 +171,7 @@ class ImportData extends Component {
 
         return (
         <div className="main-content">
-            <div>
+            <div className="isLoading">
                 {this.isLoading()}
             </div>
             <div >
