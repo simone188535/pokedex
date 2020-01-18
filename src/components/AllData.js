@@ -8,16 +8,18 @@ import { addItem } from '../actions/index';
 
 
 class ImportData extends Component {
-
-    state = {
-        loading: true,
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading: true,
+        }
     }
     isLoading = () => {
 
         let loadStatus = '';
 
         if (this.state.loading) {
-            loadStatus = <div  id="loading">Loading...</div>;
+            loadStatus = <div id="loading">Loading...</div>;
         } else {
             loadStatus = '';
         }
@@ -25,7 +27,7 @@ class ImportData extends Component {
         return (<div className="text-center">{loadStatus}</div>);
     }
 
-     //this function grabs all names out of the api and stores them in the allNames array. 
+    //this function grabs all names out of the api and stores them in the allNames array. 
     grabAllNamesFromAPI = async () => {
         try {
             //this info will later be fed into another api call. 
@@ -120,21 +122,21 @@ class ImportData extends Component {
 
             let displayList = _.map((filteredList), (value, key) => {
 
-                
+
                 const { name, sprite, allTypes, allStats, allMoves, height, weight } = value;
 
-                const everyType = _.map((allTypes),(value)=>value).join(', ');
-                
-                const everyStats = _.map((allStats),(value, i)=>{
-                     return <div key={i}> {value.name} : {value.base_stat} </div>;
-                    
+                const everyType = _.map((allTypes), (value) => value).join(', ');
+
+                const everyStats = _.map((allStats), (value, i) => {
+                    return <div key={i}> {value.name} : {value.base_stat} </div>;
+
                 });
-                const everyMoves = _.map((allMoves),(value)=>value).join(', ');
-                
-                
+                const everyMoves = _.map((allMoves), (value) => value).join(', ');
+
+
                 return (
                     <Col key={key} md={4}>
-                        
+
                         <Card className="my-5">
                             <Card.Img variant="top" src={sprite} />
                             <Card.Body>
@@ -170,18 +172,18 @@ class ImportData extends Component {
     render() {
 
         return (
-        <div className="main-content">
-            <div className="isLoading">
-                {this.isLoading()}
-            </div>
-            <div >
-                <Container className="card-container">
-                    <Row>
-                        {this.renderList()}
-                    </Row>
-                </Container>
-            </div>
-        </div>);
+            <div className="main-content">
+                <div className="isLoading">
+                    {this.isLoading()}
+                </div>
+                <div >
+                    <Container className="card-container">
+                        <Row>
+                            {this.renderList()}
+                        </Row>
+                    </Container>
+                </div>
+            </div>);
     };
 }
 

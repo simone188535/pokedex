@@ -4,8 +4,8 @@ import AllData from './AllData';
 
 class SearchBar extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             value: '',
             searchValue:''
